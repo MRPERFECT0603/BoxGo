@@ -7,7 +7,7 @@
 #include<iomanip>
 #define truckwidth 50
 #define truckheight 50
-// #include"animation.h"
+#include"animation.h"
 using namespace std;
 pair<int,int> min(vector<int> vec , int box)
 {
@@ -159,7 +159,7 @@ void bestFit(int h[] , int w[] , int l[] , int x)
 }
 int main()
 {
-    // print();
+    print();
     int h[] = {42,38,27,14,9};
     int w[] = {49,39,35,26,5};
     int l[] = {12,10,8,6,4};
