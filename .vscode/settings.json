@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.html": "html",
-        "queue": "cpp"
+        "queue": "cpp",
+        "istream": "cpp"
     }
 }
