@@ -1,12 +1,12 @@
-#ifndef ASCII_CAT_H
-#define ASCII_CAT_H
+#ifndef TRUCK_ANIMATION
+#define TRUCK_ANIMATION
 #include<iostream>
 #include<string>
 #include<algorithm>
 #include<unistd.h> 
 #include<iomanip>
 using namespace std;
-void print()
+void printanimation()
 {
     for(int i=0;i<127;i++)
     {
