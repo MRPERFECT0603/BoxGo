@@ -9,6 +9,56 @@
 #define truckwidth 50
 #define truckheight 50
 using namespace std;
+void merge(int arr[], int left, int mid, int right) {
+    int i, j, k;
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    int left_arr[n1], right_arr[n2];
+
+    for (i = 0; i < n1; i++)
+        left_arr[i] = arr[left + i];
+    for (j = 0; j < n2; j++)
+        right_arr[j] = arr[mid + 1 + j];
+
+    i = 0;
+    j = 0;
+    k = left;
+
+    while (i < n1 && j < n2) {
+        if (left_arr[i] >= right_arr[j]) {
+            arr[k] = left_arr[i];
+            i++;
+        }
+        else {
+            arr[k] = right_arr[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        arr[k] = left_arr[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = right_arr[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort(int arr[], int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+        merge(arr, left, mid, right);
+    }
+}
 pair<int,int> min(vector<int> vec , int box)
 {
     int used = 0;
@@ -157,7 +207,8 @@ void bestFit(int h[] , int w[] , int l[] , int x)
     trucks(heightNeeded,lengthNeeded);
     return ;
 }
-int main() {
+int bestfitdata()
+{
     // open the file
     ifstream infile("Boxes.txt");
     if (!infile.is_open()) {
@@ -185,13 +236,62 @@ int main() {
     }
 
     // print the data for verification
-    for (int i = 0; i < rows; i++) {
-        cout << length[i] << " " << width[i] << " " << height[i] << endl;
-    }
+    // for (int i = 0; i < rows; i++) {
+    //     cout << length[i] << " " << width[i] << " " << height[i] << endl;
+    // }
     // cout<<sizeof(length)/sizeof(int);
     // close the file
     infile.close();
     int x = sizeof(height)/sizeof(int);
-    bestFit(height,width,length,x);
+    int hcopy[x];
+    int wcopy[x];
+    int lcopy[x];
+    for(int i=0;i<x;i++)
+    {
+        hcopy[i] = height[i];
+    }
+    // cout << "Given array is \n";
+    // for (int i = 0; i < x; i++)
+    //     cout << hcopy[i] << " ";
+
+    mergeSort(hcopy, 0, x - 1);
+
+    // cout << "\nSorted array is \n";
+    // for (int i = 0; i < x; i++)
+    // {
+    //     cout << hcopy[i] << " ";
+    // }
+    cout<<endl;
+    for (int i = 0; i < x; i++)
+    {
+        for(int j=0;j<x;j++)
+        {
+            if(hcopy[i]==height[j])
+            {
+                wcopy[i]=width[j];
+                lcopy[i]=length[j];
+            }
+        }
+    }
+    // for (int i = 0; i < x; i++)
+    // {
+    //     cout << hcopy[i] << " ";
+    // }
+    // cout<<endl;
+    // for (int i = 0; i < x; i++)
+    // {
+    //     cout << wcopy[i] << " ";
+    // }
+    // cout<<endl;
+    // for (int i = 0; i < x; i++)
+    // {
+    //     cout << lcopy[i] << " ";
+    // }
+    bestFit(hcopy,wcopy,lcopy,x);
+    return 0;
+}
+int main() {
+    
+    bestfitdata();
     return 0;
 }

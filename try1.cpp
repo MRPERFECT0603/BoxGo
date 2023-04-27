@@ -18,7 +18,7 @@ void merge(int arr[], int left, int mid, int right) {
     k = left;
 
     while (i < n1 && j < n2) {
-        if (left_arr[i] <= right_arr[j]) {
+        if (left_arr[i] >= right_arr[j]) {
             arr[k] = left_arr[i];
             i++;
         }
@@ -48,24 +48,58 @@ void mergeSort(int arr[], int left, int right) {
 
         mergeSort(arr, left, mid);
         mergeSort(arr, mid + 1, right);
-
         merge(arr, left, mid, right);
     }
 }
 
 int main() {
-    int arr[] = { 12, 11, 13, 5, 6, 7 };
-    int arr_size = sizeof(arr) / sizeof(arr[0]);
-
+    int h[] = {42,38,9,27,14};
+    int w[] = {49,39,5,35,26};
+    int l[] = {12,10,4,8,6};
+    int h_size = sizeof(h) / sizeof(int);
+    int hcopy[h_size];
+    int wcopy[h_size];
+    int lcopy[h_size];
+    for(int i=0;i<h_size;i++)
+    {
+        hcopy[i] = h[i];
+    }
     cout << "Given array is \n";
-    for (int i = 0; i < arr_size; i++)
-        cout << arr[i] << " ";
+    for (int i = 0; i < h_size; i++)
+        cout << hcopy[i] << " ";
 
-    mergeSort(arr, 0, arr_size - 1);
+    mergeSort(hcopy, 0, h_size - 1);
 
     cout << "\nSorted array is \n";
-    for (int i = 0; i < arr_size; i++)
-        cout << arr[i] << " ";
-
+    for (int i = 0; i < h_size; i++)
+    {
+        cout << hcopy[i] << " ";
+    }
+    cout<<endl;
+    for (int i = 0; i < h_size; i++)
+    {
+        for(int j=0;j<h_size;j++)
+        {
+            if(hcopy[i]==h[j])
+            {
+                wcopy[i]=w[j];
+                lcopy[i]=l[j];
+            }
+        }
+    }
+    for (int i = 0; i < h_size; i++)
+    {
+        cout << hcopy[i] << " ";
+    }
+    cout<<endl;
+    for (int i = 0; i < h_size; i++)
+    {
+        cout << wcopy[i] << " ";
+    }
+    cout<<endl;
+    for (int i = 0; i < h_size; i++)
+    {
+        cout << lcopy[i] << " ";
+    }
     return 0;
 }
