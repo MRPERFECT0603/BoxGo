@@ -42,7 +42,7 @@ void headerFormat()
     cout<<setw(93)<<"  / __  / __ \\| |/_/ / __/ __ \\   "<<endl;              
     cout<<setw(92)<<" / /_/ / /_/ />  </ /_/ / /_/ /  "<<endl;               
     cout<<setw(91)<<"/_____/\\____/_/|_|\\____/\\____/  "<<endl;
-    cout<<setw(80)<<"tagline"<<endl;
+    cout<<setw(100)<<"Har baar delivery ka samaan, BoxGo se karo aasaan."<<endl;
     for(int i=0;i<2;i++)
     {
         cout<<endl;
