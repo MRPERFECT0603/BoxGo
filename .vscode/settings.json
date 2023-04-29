@@ -3,6 +3,11 @@
         "*.html": "html",
         "queue": "cpp",
         "istream": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "__locale": "cpp",
+        "__string": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "ios": "cpp"
     }
 }
