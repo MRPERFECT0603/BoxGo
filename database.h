@@ -8,10 +8,11 @@
 #define num_trucks 10
 #define num_loading_areas 3
 using namespace std;
+//GLOBAL DATA STRUCTURE TO GET ACCESS EVERYWHERE IN THE MAIN FILE 
 static string places[V];
 static int graph[V][V];
 static bool graphcolour[num_trucks][num_trucks];
-
+//DATABASE FOR THE PATHS AND THE PLACES 
 void database()
 {
     int graph[V][V];
@@ -33,6 +34,7 @@ void database()
     }
 
 }
+//GRAPH FOR THE TRUCKS AND OVERLAPPING SCHEDULE 
 void coloringGraph()
 {
     bool graph[num_trucks][num_trucks] = {

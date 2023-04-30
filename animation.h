@@ -6,6 +6,7 @@
 #include<unistd.h> 
 #include<iomanip>
 using namespace std;
+//ANIMATION OF THE TRUCK GOING BACK AND FORTH ON THE SCREEN 
 void printanimation()
 {
     for(int i=0;i<127;i++)

@@ -1,19 +1,58 @@
+/*                              *******JAYPPEE INSTITUE OF INFORMATION TECHNOLOGY*******
+                                                       SEC-62
+
+                                          *ALGORITHM AND PROBLEM SOLVING*
+                
+                                             SEMESTER-4 MINOR PROJECT
+
+
+                INTRODUCTION:
+                *                  *A ONE STOP SOLUTION FOR THE MOVERS AND PACKERS*             *
+                    
+                *                                     *BOXGO*                                   *
+
+
+                SUBMITTED TO:-
+                Dr. ANKITA WADHWA
+                Dr. KRITI JAIN
+                Dr. PURTEE KHOLI
+                
+
+                SUMITTED BY:-
+                
+                1.VIVEK SHAURYA   (21803013)
+                2.ANSH MISHRA     (21803011)
+                3.SANAT WALIA     (21803012)
+                4.YASHVIN PANT    (21803009)
+
+*/
+
+
+
+//HEADER FILES 
 #include<iostream>
 #include<string>
 #include<algorithm>
 #include<fstream>
-#include "animation.h"
-#include "headerfile.h"
-#include "database.h"
 #include<vector>
 #include<utility>
 #include<unistd.h> 
 #include<iomanip>
+
+//USER-DEFINED HEADER FILES
+#include "animation.h"
+#include "headerfile.h"
+#include "database.h"
+
+//SOME USER-DEFINED CONSTANTS 
 #define truckwidth 40
 #define truckheight 40
 #define wt 10
 #define V 6
+
 using namespace std;
+
+//ALL THE FUNCTIONS DECALARATION 
 int minDistance(int dist[], bool sptSet[]);
 void printPath(int parent[], int j, string places[]);
 void printSolution(int dist[], int parent[], int src, string places[]);
@@ -40,6 +79,8 @@ void mainPage();
 int loginAccess();
 void loginWrap();
 
+//MINIMUM DISTANCE BETWEEN TWO VERTICES 
+
 int minDistance(int dist[], bool sptSet[])
 {
     int min = INT_MAX, min_index;
@@ -54,6 +95,8 @@ int minDistance(int dist[], bool sptSet[])
     return min_index;
 }
 
+//PRINTING THE PATH 
+
 void printPath(int parent[], int j, string places[]) 
 {
     if (parent[j] == -1)
@@ -63,6 +106,8 @@ void printPath(int parent[], int j, string places[])
     printPath(parent, parent[j],places);
     cout<< "->"<<places[j] ;
 }
+
+//PRINTING THE PATH FOR ASKED PLACE
 
 void printSolution(int dist[], int parent[], int src, string places[]) 
 {
@@ -101,6 +146,8 @@ void printSolution(int dist[], int parent[], int src, string places[])
     }
 }
 
+//DIJKSTRA ALGORITHM FOR FINDING THE MINIMUM PATH BETWEEN TWO VERTICES 
+
 void dijkstra(int graph[V][V], string places[],int src) 
 {
     int dist[V];
@@ -132,6 +179,9 @@ void dijkstra(int graph[V][V], string places[],int src)
     }
     printSolution(dist, parent, src, places);
 }
+
+//WRAP FUNTION FOR THE DIJKSTRA ALGORITHM
+
 void ShortestPath()
 {
     ClearScreen();
@@ -139,6 +189,9 @@ void ShortestPath()
     database();
     dijkstra(graph, places,0);
 }
+
+//DP APPROACH FOR FILLING THE ARRAY OF 0-1 KNAPSACK
+
 int knapsack(vector<int> v , vector<int> w,int count)
 {
     int nv = v.size();
@@ -224,7 +277,7 @@ int knapsack(vector<int> v , vector<int> w,int count)
     for (int i = items.size() - 1; i >= 0; i--)
     {
         // cout << items[i] << " "; 
-        cout<<w[items[i]]<<" ";
+        cout<<w[items[i]]<<" ";                                     //HERE BACKTRACKING TO GET THE COMBINATION FOR MAXIMUM VALUE AND THEN AGAIN CALLING THE KANPSACK FOR REMAINING ITEMS 
     } 
     cout << endl;
     cout<<setw(64);
@@ -242,6 +295,9 @@ int knapsack(vector<int> v , vector<int> w,int count)
     knapsack(v,w,count);
     return 0;
 }
+
+//WRAP FUNCTION TO GET THE VALUES FROM THE FILE AND CALLING THE KANPSACK FUNCTION
+
 int maxvalue()
 {
     ifstream infile("Boxcontent.TXT");
@@ -324,6 +380,9 @@ int maxvalue()
     knapsack(vpcopy,vwcopy,count);
     return 0;
 }
+
+// MERGE FUNCTION THE UTLILTY FUNCTION FOR MERGE SORT 
+
 void merge(int arr[], int left, int mid, int right) {
     int i, j, k;
     int n1 = mid - left + 1;
@@ -365,6 +424,8 @@ void merge(int arr[], int left, int mid, int right) {
     }
 }
 
+// MERGE SORT FUNCTION TO SORT THE ARRAYS USED IN THE PROGRAMS IN DESCENDING
+
 void mergeSort(int arr[], int left, int right) {
     if (left < right) {
         int mid = left + (right - left) / 2;
@@ -374,6 +435,9 @@ void mergeSort(int arr[], int left, int right) {
         merge(arr, left, mid, right);
     }
 }
+
+//PAIR FOR THE LENGTHS TO GET MINIMUM NUMBER OF TRUCKS
+
 pair<int,int> min(vector<int> vec , int box)
 {
     int used = 0;
@@ -410,6 +474,15 @@ pair<int,int> min(vector<int> vec , int box)
     }
     return make_pair(min,used);
 }
+
+//FINALLY AFTER GETTING THE LENGTH ARRAY GIVING THE NUMBER OF MINI,SEMI AND HEAVY TRUCKS
+
+/*
+1-2->MINI
+5-8->SEMI
+9-12->HEAVY
+*/
+
 void NoOfTrucks(vector<int> vec)
 {
     int mini=0,semi=0,heavy=0;
@@ -459,9 +532,12 @@ void NoOfTrucks(vector<int> vec)
     }
     cout<<endl<<endl;
     cout<<setw(73)<<"*MINI-"<<mini<<endl<<endl<<setw(73)<<"*SEMI-"<<semi<<endl<<endl<<setw(73)<<"*HEAVY-"<<heavy<<endl;
+    FooterFormat(15);
     return ;
 }
-//in the below funcction we fixed the height of the trucks.
+
+//in the below function we fixed the height of the trucks.
+
 void trucks(vector<int> &h , vector<int> &l)
 {
     vector<int> layer;
@@ -488,7 +564,9 @@ void trucks(vector<int> &h , vector<int> &l)
     NoOfTrucks(truckLength);
     return ;
 }
+
 //fixed the width for the boxes in the below function.
+
 void bestFit(int h[] , int w[] , int l[] , int x)
 {
     vector<int> layer;
@@ -527,6 +605,9 @@ void bestFit(int h[] , int w[] , int l[] , int x)
     trucks(heightNeeded,lengthNeeded);
     return ;
 }
+
+//FUNCTION TO GET THE DATA FROM THE FILE IN THE PROGRAMME TO CALL THE BOX-FITTING ALGORITHM
+
 int bestfitdata()
 {
     // open the file
@@ -570,17 +651,9 @@ int bestfitdata()
     {
         hcopy[i] = height[i];
     }
-    // cout << "Given array is \n";
-    // for (int i = 0; i < x; i++)
-    //     cout << hcopy[i] << " ";
 
     mergeSort(hcopy, 0, x - 1);
 
-    // cout << "\nSorted array is \n";
-    // for (int i = 0; i < x; i++)
-    // {
-    //     cout << hcopy[i] << " ";
-    // }
     cout<<endl;
     for (int i = 0; i < x; i++)
     {
@@ -610,6 +683,9 @@ int bestfitdata()
     bestFit(hcopy,wcopy,lcopy,x);
     return 0;
 }
+
+//SCHEDULLING THE TRUCKS ON THE BASIS OF PROFIT (JOB-SCHEDULLING APPROACH)
+
 void schedulingonprofit(pair<string,int> profit[] , int deadline[] , int ndeadline)
 {
     int arr[ndeadline];
@@ -648,6 +724,9 @@ void schedulingonprofit(pair<string,int> profit[] , int deadline[] , int ndeadli
     }
     FooterFormat(18);
 }
+
+//TAKING THE DATA FROM THE FILE AND CALL SCHEDULLING FUNCTION 
+
 int scheduling()
 {
     ifstream infile("ShippingOrder.TXT");
@@ -687,17 +766,9 @@ int scheduling()
     {
         pcopy[i] = profit[i];
     }
-    // cout << "Given array is \n";
-    // for (int i = 0; i < x; i++)
-    //     cout << pcopy[i] << " ";
 
     mergeSort(pcopy, 0, x - 1);
 
-    // cout << "\nSorted array is \n";
-    // for (int i = 0; i < x; i++)
-    // {
-    //     cout << hcopy[i] << " ";
-    // }
     cout<<endl;
     for (int i = 0; i < x; i++)
     {
@@ -734,6 +805,7 @@ int scheduling()
 }
 
 // Helper function to check if a color can be assigned to a vertex
+
 bool is_color_valid(int v, vector<int>& colors, int c) {
     coloringGraph();
     for (int i = 0; i < num_trucks; ++i) {
@@ -745,6 +817,7 @@ bool is_color_valid(int v, vector<int>& colors, int c) {
 }
 
 // Backtracking function to color the graph
+
 bool color_graph_backtracking(vector<int>& colors, int v) {
     if (v == num_trucks) {
         return true; // All vertices have been colored
@@ -760,6 +833,8 @@ bool color_graph_backtracking(vector<int>& colors, int v) {
     }
     return false; // No valid color can be assigned to vertex v
 }
+
+//CHECKING THE BACKTRACKING USING MAP-COLOURING AND PRINTING THE VALUE
 
 void SlotBooking()
 {
@@ -784,9 +859,14 @@ void SlotBooking()
     FooterFormat(15);
 
 }
+
+//UTILITY FUNCTION FOR THE SORT ALGO TO SORT ACCORDING TO THE DESCENDING ORDER OF SECOND VALUE
+
 bool compareSecond(const std::pair<int, int>& a, const std::pair<int, int>& b) {
     return a.second < b.second;
 }
+
+//FUNCTION TO SELECT THE ACTIVITIES ON THE BASIS OF ARRIVAL AND DEPARTURE TIMMING 
 
 void activitySelection(vector<pair<int,int> > duration, int num_act)
 {
@@ -811,6 +891,9 @@ void activitySelection(vector<pair<int,int> > duration, int num_act)
     }
     FooterFormat(17);
 }
+
+// GETTING THE DATA FOR SEQUENCING THE TRUCKS
+
 int sequencingData()
 {
 
@@ -845,6 +928,9 @@ int sequencingData()
     activitySelection(timming , 4);
     return 0;
 }
+
+//MAIN PAGE FUNCTION FOR THE MENU CONTROL 
+
 void mainPage()
 {
     label:
@@ -969,14 +1055,17 @@ void mainPage()
             }
         break;
         default:
-        cout<<"Wrong option choosed, Please Pick the correct Option.";
+        cout<<setw(100)<<"Wrong option choosed, Please Pick the correct Option."<<endl;
         sleep(1);
         ClearScreen();
         goto label;
-        break;
+
     }
 
 }
+
+//LOGIN ACCESS FUNCTION TO CHECK PASSWORD AND USERNAME TO ACCESS THE PROGRAMME
+
 int loginAccess()
 {
    ifstream infile("LoginDetails.txt");
@@ -1044,6 +1133,9 @@ int loginAccess()
     return -2;
     
 }
+
+//LOGIN WRAP FUNCTION FOR DIFFERENT SCENARIO.
+
 void loginWrap()
 {
     label:ClearScreen();
@@ -1085,11 +1177,13 @@ void loginWrap()
         mainPage();
     }
 }
+
+// MAIN FUNCTION (DRIVER FUNCTION)
+
 int main()
 {
-    // printanimation(); 
-    // loginWrap();
-    mainPage();
+    printanimation(); 
+    loginWrap();
     lastPage();
     return 0;
 }

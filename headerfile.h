@@ -6,6 +6,9 @@
 #include<iomanip>
 #include<ctime>
 using namespace std;
+
+//FUNCTION TO PRINT THE DATE AND TIME ON THE SCREEN
+
 void showTime()
 {
     
@@ -21,10 +24,16 @@ void showTime()
     cout<<setw(156);
     cout<< time_str << endl;
 }
+
+//CLEAR SCREEN FUNCTION 
+
 void ClearScreen()
 {
     system("clear");
 }
+
+//FUNCTION TO PRINT THE FORMAT OF HEADER ON THE SCREEN
+
 void headerFormat()
 { 
     ClearScreen();
@@ -42,7 +51,7 @@ void headerFormat()
     {
         cout<<endl;
     }
-    cout<<setw(95)<<"    ____             ______         "<<endl;           
+    cout<<setw(95)<<"     ____             ______         "<<endl;           
     cout<<setw(94)<<"   / __ )____  _  __/ ____/___     "<<endl;           
     cout<<setw(93)<<"  / __  / __ \\| |/_/ / __/ __ \\   "<<endl;              
     cout<<setw(92)<<" / /_/ / /_/ />  </ /_/ / /_/ /  "<<endl;               
@@ -57,6 +66,9 @@ void headerFormat()
         cout<<"-";                                                                                                                          
     }
 }
+
+//FOOTER FORMAT PRINT ON THE SCREEN
+
 void FooterFormat(int x)
 {
     for(int i=0;i<x;i++)
@@ -69,6 +81,9 @@ void FooterFormat(int x)
     }
     cout<<"@copyright by Vivek Shaurya";
 }
+
+//FUNCTION TO PRINT THE LAST PAGE AND THANK YOU NOTE
+
 void lastPage()
 {
     ClearScreen();
