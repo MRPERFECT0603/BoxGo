@@ -1,6 +1,6 @@
 Destination 	Deadline	Profit
 D			1		19
 A			2		100
-B			2		27
 E			3		15
 C			1		25
+B			2		27

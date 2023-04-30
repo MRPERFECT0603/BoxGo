@@ -564,6 +564,232 @@ int bestfitdata()
     bestFit(hcopy,wcopy,lcopy,x);
     return 0;
 }
+void schedulingonprofit(pair<string,int> profit[] , int deadline[] , int ndeadline)
+{
+    int arr[ndeadline];
+    for(int i=0;i<ndeadline;i++)
+    {
+        arr[i] = 0;
+    }
+    for(int i=0;i<ndeadline;i++)
+    {
+        for(int j=deadline[i]-1;j>=0;j--)
+        {
+            if(arr[j]==0)
+            {
+                arr[j] = profit[i].second;
+                break;
+            }
+        }
+    }
+    for(int i=0;i<ndeadline;i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+    for(int i=0;i<ndeadline;i++)
+    {
+        for(int j=0;j<ndeadline;j++)
+        {
+            if(profit[j].second == arr[i])
+            {
+                cout<<profit[j].first<<" ";
+            }
+        }
+    }
+}
+int scheduling()
+{
+    ifstream infile("ShippingOrder.TXT");
+    if (!infile.is_open()) {
+        cerr << "Error: Unable to open file!" << endl;
+        return 1;
+    }
+    int rows = 0;
+    string line;
+    while (getline(infile, line)) {
+        rows++;
+    }
+    infile.clear();
+    infile.seekg(0, ios::beg);
+    --rows;
+    string header;
+    getline(infile,header);
+    // define the arrays
+    string Destination[rows];
+    int deadline[rows];
+    int profit[rows];
+
+    // read the data into the arrays
+    for (int i = 0; i < rows; i++) {
+        infile >> Destination[i] >> deadline[i] >> profit[i];
+    }
+    // print the data for verification
+    for (int i = 0; i < rows; i++) {
+        cout << Destination[i] << " " << deadline[i] << " " << profit[i] << endl;
+    }
+    infile.close();
+    int x = sizeof(deadline)/sizeof(int);
+    string destcopy[x];
+    int dcopy[x];
+    int pcopy[x];
+    for(int i=0;i<x;i++)
+    {
+        pcopy[i] = profit[i];
+    }
+    cout << "Given array is \n";
+    for (int i = 0; i < x; i++)
+        cout << pcopy[i] << " ";
+
+    mergeSort(pcopy, 0, x - 1);
+
+    // cout << "\nSorted array is \n";
+    // for (int i = 0; i < x; i++)
+    // {
+    //     cout << hcopy[i] << " ";
+    // }
+    cout<<endl;
+    for (int i = 0; i < x; i++)
+    {
+        for(int j=0;j<x;j++)
+        {
+            if(pcopy[i]==profit[j])
+            {
+                dcopy[i]=deadline[j];
+                destcopy[i]=Destination[j];
+            }
+        }
+    }
+    for (int i = 0; i < x; i++)
+    {
+        cout << pcopy[i] << " ";
+    }
+    cout<<endl;
+    for (int i = 0; i < x; i++)
+    {
+        cout << dcopy[i] << " ";
+    }
+    cout<<endl;
+    for (int i = 0; i < x; i++)
+    {
+        cout << destcopy[i] << " ";
+    }
+    pair<string,int> ppcopy[x];
+    for(int i=0;i<x;i++)
+    {
+        ppcopy[i] = make_pair(destcopy[i],pcopy[i]);
+    }
+    schedulingonprofit(ppcopy,dcopy,x);
+    return 0;
+}
+
+// Helper function to check if a color can be assigned to a vertex
+bool is_color_valid(int v, vector<int>& colors, int c) {
+    coloringGraph();
+    for (int i = 0; i < num_trucks; ++i) {
+        if (graphcolour[v][i] && colors[i] == c) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Backtracking function to color the graph
+bool color_graph_backtracking(vector<int>& colors, int v) {
+    if (v == num_trucks) {
+        return true; // All vertices have been colored
+    }
+    for (int c = 0; c < num_loading_areas; ++c) {
+        if (is_color_valid(v, colors, c)) {
+            colors[v] = c; // Assign color to vertex v
+            if (color_graph_backtracking(colors, v+1)) {
+                return true; // Continue coloring remaining vertices
+            }
+            colors[v] = -1; // Reset color assignment for vertex v
+        }
+    }
+    return false; // No valid color can be assigned to vertex v
+}
+
+void SlotBooking()
+{
+    ClearScreen();
+    headerFormat();
+    vector<int> colors(num_trucks, -1);
+    if (color_graph_backtracking(colors, 0)) {
+        // Print the resulting schedule
+        for (int i = 0; i <= num_loading_areas; ++i) {
+            cout << "Loading area " << i+1 << ": ";
+            for (int j = 0; j < num_trucks; ++j) {
+                if (colors[j] == i) {
+                    cout << "Truck " << j+1 << "    ";
+                }
+            }
+            cout << endl;
+        }
+    } else {
+        cout << "No valid coloring exists." << endl;
+    }
+    FooterFormat(23);
+
+}
+bool compareSecond(const std::pair<int, int>& a, const std::pair<int, int>& b) {
+    return a.second < b.second;
+}
+
+void activitySelection(vector<pair<int,int> > duration, int num_act)
+{
+    // Sort the vector in descending order of second value
+    sort(duration.begin(), duration.end(), compareSecond);
+    vector<pair<int,int> > activity;
+    activity.push_back(duration[0]);
+    int j=0;
+    for(int i=1;i<duration.size();i++)
+    {
+        if(activity[j].second<=duration[i].first)
+        {
+            activity.push_back(duration[i]);
+            j++;
+        }
+    }
+    for(int i=0;i<activity.size();i++)
+    {
+       cout<<activity[i].first<<","<<activity[i].second<<"    ";
+    }
+}
+int sequencingData()
+{
+
+    ifstream infile("Trucktimming.TXT");
+    if (!infile.is_open()) {
+        cerr << "Error: Unable to open file!" << endl;
+        return 1;
+    }
+    int rows = 0;
+    string line;
+    while (getline(infile, line)) {
+        rows++;
+    }
+    infile.clear();
+    infile.seekg(0, ios::beg);
+    --rows;
+    string header;
+    getline(infile,header);
+    // define the arrays
+    vector<pair<int,int> > timming;
+    // read the data into the arrays
+    int first=0,second=0;
+    for (int i = 0; i < rows; i++) {
+        infile >> first >>second;
+        timming.push_back(make_pair(first,second));
+    }
+    // print the data for verification
+    // for (int i = 0; i < rows; i++) {
+    //     cout << Destination[i] << " " << deadline[i] << " " << profit[i] << endl;
+    // }
+    infile.close();
+    activitySelection(timming , 4);
+    return 0;
+}
 void mainPage()
 {
     label:ClearScreen();
@@ -572,8 +798,9 @@ void mainPage()
     cout<<"1. Find the Combination to get maximum value in a box."<<endl;
     cout<<"2. Findout the Minimum number of Trucks Needed."<<endl;
     cout<<"3. Schedule Your trucks on loading dock for maximizing profit."<<endl;
-    cout<<"4. Find the Shortest Path to a given Place."<<endl;
-    cout<<"5. Ansh/Sanat"<<endl;
+    cout<<"4. Find the Shortest Path to a given Destination."<<endl;
+    cout<<"5. Slot Booking for Loading dock."<<endl;
+    cout<<"6. Sequencing truck according to their timming."<<endl;
     int option;
     cin>>option;
     switch(option)
@@ -585,15 +812,23 @@ void mainPage()
             bestfitdata();
         break;
         case 3:
+            scheduling();
         break;
         case 4:
             ShortestPath();
         break;
         case 5:
+            SlotBooking();
+        break;
+        case 6:
+            sequencingData();
         break;
         default:
         cout<<"Wrong option choosed, Please Pick the correct Number.";
+        sleep(1);
+        ClearScreen();
         goto label;
+        break;
     }
 
 }
@@ -699,7 +934,7 @@ void loginWrap()
 }
 int main()
 {
-    // printanimation();
+    // printanimation(); 
     loginWrap();
     return 0;
 }

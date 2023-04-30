@@ -5,9 +5,12 @@
 #include <climits>
 #include<string>
 #define V 6
+#define num_trucks 10
+#define num_loading_areas 3
 using namespace std;
 static string places[V];
 static int graph[V][V];
+static bool graphcolour[num_trucks][num_trucks];
 
 void database()
 {
@@ -29,5 +32,27 @@ void database()
         }
     }
 
+}
+void coloringGraph()
+{
+    bool graph[num_trucks][num_trucks] = {
+    {false, true, true, false, false, false, false, false, false, false},
+    {true, false, true, false, false, false, false, false, false, false},
+    {true, true, false, true, false, false, false, false, false, false},
+    {false, false, true, false, false, false, false, false, false, false},
+    {false, false, false, false, false, true, true, false, false, false},
+    {false, false, false, false, true, false, true, false, false, false},
+    {false, false, false, false, true, true, false, true, false, false},
+    {false, false, false, false, false, false, true, false, false, false},
+    {false, false, false, false, false, false, false, false, false, true},
+    {false, false, false, false, false, false, false, false, true, false}
+};
+    for(int i=0;i<num_trucks;i++)
+    {
+        for(int j=0;j<num_trucks;j++)
+        {
+            graphcolour[i][j] = graph[i][j];
+        }
+    }
 }
 #endif
