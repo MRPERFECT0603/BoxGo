@@ -9,11 +9,37 @@
 #include<utility>
 #include<unistd.h> 
 #include<iomanip>
-#define truckwidth 50
-#define truckheight 50
+#define truckwidth 40
+#define truckheight 40
 #define wt 10
 #define V 6
 using namespace std;
+int minDistance(int dist[], bool sptSet[]);
+void printPath(int parent[], int j, string places[]);
+void printSolution(int dist[], int parent[], int src, string places[]);
+void dijkstra(int graph[V][V], string places[],int src);
+void ShortestPath();
+int knapsack(vector<int> v , vector<int> w,int count);
+int maxvalue();
+void merge(int arr[], int left, int mid, int right);
+void mergeSort(int arr[], int left, int right);
+pair<int,int> min(vector<int> vec , int box);
+void NoOfTrucks(vector<int> vec);
+void trucks(vector<int> &h , vector<int> &l);
+void bestFit(int h[] , int w[] , int l[] , int x);
+int bestfitdata();
+void schedulingonprofit(pair<string,int> profit[] , int deadline[] , int ndeadline);
+int scheduling();
+bool is_color_valid(int v, vector<int>& colors, int c);
+bool color_graph_backtracking(vector<int>& colors, int v);
+void SlotBooking();
+bool compareSecond(const std::pair<int, int>& a, const std::pair<int, int>& b);
+void activitySelection(vector<pair<int,int> > duration, int num_act);
+int sequencingData();
+void mainPage();
+int loginAccess();
+void loginWrap();
+
 int minDistance(int dist[], bool sptSet[])
 {
     int min = INT_MAX, min_index;
@@ -28,14 +54,14 @@ int minDistance(int dist[], bool sptSet[])
     return min_index;
 }
 
-void printPath(int parent[], int j) 
+void printPath(int parent[], int j, string places[]) 
 {
     if (parent[j] == -1)
     {
         return;
     }
-    printPath(parent, parent[j]);
-    cout << j << " ";
+    printPath(parent, parent[j],places);
+    cout<< "->"<<places[j] ;
 }
 
 void printSolution(int dist[], int parent[], int src, string places[]) 
@@ -46,7 +72,9 @@ void printSolution(int dist[], int parent[], int src, string places[])
     //     printPath(parent, i);
     //     cout << endl;
     // }
-    cout<<"enter the location"<<endl;
+    cout<<endl<<endl;
+    cout<<setw(85)<<"Enter the Destination:"<<endl;
+    cout<<setw(70)<<"->";
     string dest;
     cin>>dest;
     int desvar;
@@ -61,9 +89,15 @@ void printSolution(int dist[], int parent[], int src, string places[])
     }
     if(desvar!=-1)
     {
-        cout<<"Main Office -> "<<dest<<dist[desvar]<<endl;
-        cout<<"Path to follow:"<<src<<" ";
-        printPath(parent, desvar);
+        cout<<endl<<endl;
+        cout<<setw(70)<<"Main Office -> "<<dest<<"  Distance: "<<dist[desvar]<<"KM"<<endl;
+        cout<<endl;
+        cout<<setw(70)<<"Path to follow: "<<places[0];
+        printPath(parent, desvar, places);
+    }
+    else
+    {
+        cout<<endl<<setw(105)<<"Destination Not in the Database.Pleace Update  your Database.";
     }
 }
 
@@ -185,12 +219,19 @@ int knapsack(vector<int> v , vector<int> w,int count)
         i--;
     }
     //just couting random stuff
-    cout<<"Box "<<count<<":  ";
+    cout<<endl<<endl;
+    cout<<setw(72)<<"Box "<<count<<":  ";
     for (int i = items.size() - 1; i >= 0; i--)
     {
         // cout << items[i] << " "; 
         cout<<w[items[i]]<<" ";
     } 
+    cout << endl;
+    cout<<setw(64);
+    for(int i=0;i<20;i++)
+    {
+        cout<<"-";
+    }
     count++;
     cout << endl;
     for(int i=0;i<items.size();i++)
@@ -416,7 +457,8 @@ void NoOfTrucks(vector<int> vec)
     {
         heavy++;            
     }
-    cout<<"MINI-"<<mini<<endl<<"SEMI-"<<semi<<endl<<"HEAVY-"<<heavy<<endl;
+    cout<<endl<<endl;
+    cout<<setw(73)<<"*MINI-"<<mini<<endl<<endl<<setw(73)<<"*SEMI-"<<semi<<endl<<endl<<setw(73)<<"*HEAVY-"<<heavy<<endl;
     return ;
 }
 //in the below funcction we fixed the height of the trucks.
@@ -478,6 +520,10 @@ void bestFit(int h[] , int w[] , int l[] , int x)
             lengthNeeded.push_back(l[i]);
         }
     }
+    // for(int i=0;i<heightNeeded.size();i++)
+    // {
+    //     cout<<heightNeeded[i]<<lengthNeeded[i]<<endl;
+    // }
     trucks(heightNeeded,lengthNeeded);
     return ;
 }
@@ -582,20 +628,25 @@ void schedulingonprofit(pair<string,int> profit[] , int deadline[] , int ndeadli
             }
         }
     }
-    for(int i=0;i<ndeadline;i++)
-    {
-        cout<<arr[i]<<" ";
-    }
+    // for(int i=0;i<ndeadline;i++)
+    // {
+    //     cout<<arr[i]<<" ";
+    // }
+    cout<<setw(95)<<"Schedule Your Orders in the given Sequence:";
+    int count=1;
     for(int i=0;i<ndeadline;i++)
     {
         for(int j=0;j<ndeadline;j++)
         {
             if(profit[j].second == arr[i])
             {
-                cout<<profit[j].first<<" ";
+                cout<<endl<<endl;
+                cout<<setw(70)<<count<<". "<<profit[j].first<<" ";
+                count++;
             }
         }
     }
+    FooterFormat(18);
 }
 int scheduling()
 {
@@ -624,9 +675,9 @@ int scheduling()
         infile >> Destination[i] >> deadline[i] >> profit[i];
     }
     // print the data for verification
-    for (int i = 0; i < rows; i++) {
-        cout << Destination[i] << " " << deadline[i] << " " << profit[i] << endl;
-    }
+    // for (int i = 0; i < rows; i++) {
+    //     cout << Destination[i] << " " << deadline[i] << " " << profit[i] << endl;
+    // }
     infile.close();
     int x = sizeof(deadline)/sizeof(int);
     string destcopy[x];
@@ -636,9 +687,9 @@ int scheduling()
     {
         pcopy[i] = profit[i];
     }
-    cout << "Given array is \n";
-    for (int i = 0; i < x; i++)
-        cout << pcopy[i] << " ";
+    // cout << "Given array is \n";
+    // for (int i = 0; i < x; i++)
+    //     cout << pcopy[i] << " ";
 
     mergeSort(pcopy, 0, x - 1);
 
@@ -659,20 +710,20 @@ int scheduling()
             }
         }
     }
-    for (int i = 0; i < x; i++)
-    {
-        cout << pcopy[i] << " ";
-    }
-    cout<<endl;
-    for (int i = 0; i < x; i++)
-    {
-        cout << dcopy[i] << " ";
-    }
-    cout<<endl;
-    for (int i = 0; i < x; i++)
-    {
-        cout << destcopy[i] << " ";
-    }
+    // for (int i = 0; i < x; i++)
+    // {
+    //     cout << pcopy[i] << " ";
+    // }
+    // cout<<endl;
+    // for (int i = 0; i < x; i++)
+    // {
+    //     cout << dcopy[i] << " ";
+    // }
+    // cout<<endl;
+    // for (int i = 0; i < x; i++)
+    // {
+    //     cout << destcopy[i] << " ";
+    // }
     pair<string,int> ppcopy[x];
     for(int i=0;i<x;i++)
     {
@@ -717,19 +768,20 @@ void SlotBooking()
     vector<int> colors(num_trucks, -1);
     if (color_graph_backtracking(colors, 0)) {
         // Print the resulting schedule
+        cout<<endl<<endl;
         for (int i = 0; i <= num_loading_areas; ++i) {
-            cout << "Loading area " << i+1 << ": ";
+            cout<<setw(60)<< "Loading area " << i+1 << ": ";
             for (int j = 0; j < num_trucks; ++j) {
                 if (colors[j] == i) {
                     cout << "Truck " << j+1 << "    ";
                 }
             }
-            cout << endl;
+            cout << endl<<endl;
         }
     } else {
         cout << "No valid coloring exists." << endl;
     }
-    FooterFormat(23);
+    FooterFormat(15);
 
 }
 bool compareSecond(const std::pair<int, int>& a, const std::pair<int, int>& b) {
@@ -751,10 +803,13 @@ void activitySelection(vector<pair<int,int> > duration, int num_act)
             j++;
         }
     }
+    cout<<endl<<endl;
+    cout<<setw(93)<<"Arrival Time     Departure Time"<<endl;
     for(int i=0;i<activity.size();i++)
     {
-       cout<<activity[i].first<<","<<activity[i].second<<"    ";
+       cout<<setw(68)<<activity[i].first<<"                "<<activity[i].second<<"    "<<endl<<endl;
     }
+    FooterFormat(17);
 }
 int sequencingData()
 {
@@ -792,39 +847,129 @@ int sequencingData()
 }
 void mainPage()
 {
-    label:ClearScreen();
+    label:
+    ClearScreen();
     headerFormat();
-    cout<<"CHOOSE FROM THE BELOW OPTION"<<endl;
-    cout<<"1. Find the Combination to get maximum value in a box."<<endl;
-    cout<<"2. Findout the Minimum number of Trucks Needed."<<endl;
-    cout<<"3. Schedule Your trucks on loading dock for maximizing profit."<<endl;
-    cout<<"4. Find the Shortest Path to a given Destination."<<endl;
-    cout<<"5. Slot Booking for Loading dock."<<endl;
-    cout<<"6. Sequencing truck according to their timming."<<endl;
+    cout<<endl<<endl;
+    cout<<setw(57)<<endl;
+    for(int i =0;i<36;i++)
+    {
+        cout<<"-";
+    }
+    cout<<endl<<endl;
+    cout<<setw(88)<<"CHOOSE FROM THE BELOW OPTIONS"<<endl;
+    cout<<setw(57)<<endl;
+    for(int i =0;i<36;i++)
+    {
+        cout<<"-";
+    }
+    cout<<endl;
+    cout<<setw(45);
+    for(int i =0;i<60;i++)
+    {
+        cout<<"-";
+    }
+    cout<<endl<<endl;
+    cout<<setw(100)<<"1. Find the Combination to get maximum value in a box."<<endl;
+    cout<<setw(93)<<"2. Findout the Minimum number of Trucks Needed."<<endl;
+    cout<<setw(108)<<"3. Schedule Your trucks on loading dock for maximizing profit."<<endl;
+    cout<<setw(95)<<"4. Find the Shortest Path to a given Destination."<<endl;
+    cout<<setw(79)<<"5. Slot Booking for Loading dock."<<endl;
+    cout<<setw(93)<<"6. Sequencing truck according to their timming."<<endl;
+    cout<<endl;
+    cout<<setw(45);
+    for(int i =0;i<60;i++)
+    {
+        cout<<"-";
+    }
+    cout<<endl;
     int option;
+    int option1;
+    cout<<setw(83)<<"Enter The Option Here"<<endl;
+    cout<<setw(70)<<"->";
     cin>>option;
     switch(option)
     {
         case 1:
+            ClearScreen();
+            headerFormat();
             maxvalue();
+            cout<<endl<<endl<<endl<<endl;
+            cout<<setw(88)<<"Press 1 to go the home screen."<<endl;
+            cout<<setw(71)<<"->";
+            cin>>option1;
+            if(option1==1)
+            {
+                goto label;
+            }
         break;
         case 2:
+            ClearScreen();
+            headerFormat();
             bestfitdata();
+            cout<<endl<<endl<<endl<<endl;
+            cout<<setw(88)<<"Press 1 to go the home screen."<<endl;
+            cout<<setw(71)<<"->";
+            cin>>option1;
+            if(option1==1)
+            {
+                goto label;
+            }
         break;
         case 3:
+            ClearScreen();
+            headerFormat();
             scheduling();
+            cout<<endl<<endl<<endl<<endl;
+            cout<<setw(88)<<"Press 1 to go the home screen."<<endl;
+            cout<<setw(71)<<"->";
+            cin>>option1;
+            if(option1==1)
+            {
+                goto label;
+            }
         break;
         case 4:
+            ClearScreen();
+            headerFormat();
             ShortestPath();
+            cout<<endl<<endl<<endl<<endl;
+            cout<<setw(88)<<"Press 1 to go the home screen."<<endl;
+            cout<<setw(71)<<"->";
+            cin>>option1;
+            if(option1==1)
+            {
+                goto label;
+            }
         break;
         case 5:
+            ClearScreen();
+            headerFormat();
             SlotBooking();
+            cout<<endl<<endl<<endl<<endl;
+            cout<<setw(88)<<"Press 1 to go the home screen."<<endl;
+            cout<<setw(71)<<"->";
+            cin>>option1;
+            if(option1==1)
+            {
+                goto label;
+            }
         break;
         case 6:
+            ClearScreen();
+            headerFormat();
             sequencingData();
+            cout<<endl<<endl<<endl<<endl;
+            cout<<setw(88)<<"Press 1 to go the home screen."<<endl;
+            cout<<setw(71)<<"->";
+            cin>>option1;
+            if(option1==1)
+            {
+                goto label;
+            }
         break;
         default:
-        cout<<"Wrong option choosed, Please Pick the correct Number.";
+        cout<<"Wrong option choosed, Please Pick the correct Option.";
         sleep(1);
         ClearScreen();
         goto label;
@@ -876,9 +1021,13 @@ int loginAccess()
     // }
     string user;
     string password;
-    cout<<"enter the username"<<endl;
+    cout<<endl<<endl;
+    cout<<setw(85)<<"Enter the UserName:"<<endl;
+    cout<<setw(72)<<"->";
     cin>>user;
-    cout<<"enter the password"<<endl;
+    cout<<endl<<endl;
+    cout<<setw(85)<<"Enter the Password:"<<endl;
+    cout<<setw(72)<<"->";
     cin>>password;
     for(int i=0;i<ROWS;i++)
     {
@@ -897,7 +1046,8 @@ int loginAccess()
 }
 void loginWrap()
 {
-    label:headerFormat();
+    label:ClearScreen();
+    cout<<endl<<endl<<endl<<endl<<endl;
     /*
     -1 == Error in opening the file.
     1 == Access granted.
@@ -908,26 +1058,29 @@ void loginWrap()
     output = loginAccess(); 
     if(output == -2)
     {
-        cout<<"UserName not found."<<endl;
-        cout<<"Please Enter the correct UserName."<<endl;
-        sleep(3);
+        cout<<endl<<endl;
+        cout<<setw(84)<<"UserName not found."<<endl;
+        cout<<setw(91)<<"Please Enter the correct UserName."<<endl;
+        sleep(2);
         goto label;
     }
     if(output == -1)
     {
-        cout<<"Error in opening the Database."<<endl;
-        sleep(3);
+        cout<<endl<<endl;
+        cout<<setw(82)<<"Error in opening the Database."<<endl;
+        sleep(2);
     }
     if(output == 0)
     {
-        cout<<"Incorrect Password, Use the correct password."<<endl;
-        sleep(3);
+        cout<<endl<<endl;
+        cout<<setw(100)<<"Incorrect Password, Use the correct password."<<endl;
+        sleep(2);
         goto label;
         
     }
     if(output == 1)
-    {
-        cout<<"Access Granted."<<endl;
+    {   cout<<endl<<endl;
+        cout<<setw(82)<<"Access Granted."<<endl;
         sleep(1);
         mainPage();
     }
@@ -935,6 +1088,8 @@ void loginWrap()
 int main()
 {
     // printanimation(); 
-    loginWrap();
+    // loginWrap();
+    mainPage();
+    lastPage();
     return 0;
 }

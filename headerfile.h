@@ -28,6 +28,11 @@ void ClearScreen()
 void headerFormat()
 { 
     ClearScreen();
+    for(int i=0;i<156;i++)
+    {
+        cout<<"-";                                                                                                                          
+    }
+    cout<<endl;
     for(int i=0;i<1;i++)
     {
         cout<<endl;
@@ -63,5 +68,21 @@ void FooterFormat(int x)
         cout<<"-";                                                                                                                          
     }
     cout<<"@copyright by Vivek Shaurya";
+}
+void lastPage()
+{
+    ClearScreen();
+    headerFormat();
+    cout<<endl<<endl<<endl<<endl;
+    cout<<setw(90)<<"Thank You for Using BoxGo."<<endl<<endl;
+    cout<<setw(90)<<"--------------------------"<<endl<<endl;
+    cout<<setw(90)<<"Designed and Developed by:-"<<endl<<endl;
+    cout<<setw(90)<<"--------------------------"<<endl<<endl;
+    cout<<setw(85)<<"1. Vivek Shaurya."<<endl;
+    cout<<setw(83)<<"2. Ansh Mishra."<<endl;
+    cout<<setw(83)<<"3. Sanat Walia."<<endl;
+    cout<<setw(84)<<"4. Yashvin Pant."<<endl<<endl;
+    cout<<setw(90)<<"--------------------------"<<endl<<endl;
+    FooterFormat(8);
 }
 #endif

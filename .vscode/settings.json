@@ -8,6 +8,8 @@
         "__string": "cpp",
         "string": "cpp",
         "string_view": "cpp",
-        "ios": "cpp"
+        "ios": "cpp",
+        "iomanip": "cpp",
+        "ostream": "cpp"
     }
 }

@@ -1,6 +1,6 @@
 Destination 	Deadline	Profit
-D			1		19
-A			2		100
-E			3		15
-C			1		25
-B			2		27
+Kolkata			1		19
+Chenaai			2		100
+Mumbai			3		15
+Patna			1		25
+Kerala			2		27
