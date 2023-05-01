@@ -204,7 +204,7 @@ int knapsack(vector<int> v , vector<int> w,int count)
     }
     int arr[nw+1][wt+1];
     //initializaing everyone to -1
-    
+
     for(int i = 0;i<=nw;i++)
     {
         for(int j = 0;j<=wt;j++)
@@ -1193,7 +1193,7 @@ void loginWrap()
 
 int main()
 {
-    // printanimation(); 
+    printanimation(); 
     loginWrap();
     lastPage();
     return 0;
