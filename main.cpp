@@ -135,7 +135,7 @@ void printSolution(int dist[], int parent[], int src, string places[])
     if(desvar!=-1)
     {
         cout<<endl<<endl;
-        cout<<setw(70)<<"Main Office -> "<<dest<<"  Distance: "<<dist[desvar]<<"KM"<<endl;
+        cout<<setw(70)<<"Main Office -> "<<dest<<"  *Distance: "<<dist[desvar]<<"KM"<<endl;
         cout<<endl;
         cout<<setw(70)<<"Path to follow: "<<places[0];
         printPath(parent, desvar, places);
@@ -1019,7 +1019,9 @@ void mainPage()
             ClearScreen();
             headerFormat();
             ShortestPath();
-            cout<<endl<<endl<<endl<<endl;
+            // cout<<endl<<endl<<endl<<endl;
+            FooterFormat(15);
+            cout<<endl;
             cout<<setw(88)<<"Press 1 to go the home screen."<<endl;
             cout<<setw(71)<<"->";
             cin>>option1;
@@ -1111,6 +1113,12 @@ int loginAccess()
     string user;
     string password;
     cout<<endl<<endl;
+    cout<<setw(61);
+    for(int i=0;i<30;i++)
+    {
+        cout<<"-";
+    }
+    cout<<endl<<endl;
     cout<<setw(85)<<"Enter the UserName:"<<endl;
     cout<<setw(72)<<"->";
     cin>>user;
@@ -1182,7 +1190,7 @@ void loginWrap()
 
 int main()
 {
-    printanimation(); 
+    // printanimation(); 
     loginWrap();
     lastPage();
     return 0;
