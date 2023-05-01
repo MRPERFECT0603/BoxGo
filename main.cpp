@@ -132,6 +132,7 @@ void printSolution(int dist[], int parent[], int src, string places[])
         }
         else desvar=-1;
     }
+
     if(desvar!=-1)
     {
         cout<<endl<<endl;
@@ -140,6 +141,7 @@ void printSolution(int dist[], int parent[], int src, string places[])
         cout<<setw(70)<<"Path to follow: "<<places[0];
         printPath(parent, desvar, places);
     }
+
     else
     {
         cout<<endl<<setw(105)<<"Destination Not in the Database.Pleace Update  your Database.";
@@ -202,6 +204,7 @@ int knapsack(vector<int> v , vector<int> w,int count)
     }
     int arr[nw+1][wt+1];
     //initializaing everyone to -1
+    
     for(int i = 0;i<=nw;i++)
     {
         for(int j = 0;j<=wt;j++)
