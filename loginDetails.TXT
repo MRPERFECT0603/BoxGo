@@ -1,4 +1,0 @@
-UserName	PassWord
-vivek		1234
-admin		admin
-Ankita		A@007
