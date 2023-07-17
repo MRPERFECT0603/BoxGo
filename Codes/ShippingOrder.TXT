@@ -1,0 +1,6 @@
+Destination 	Deadline	Profit
+Kolkata			1		19
+Chennai			2		100
+Mumbai			3		15
+Patna			1		25
+Kerala			2		27
